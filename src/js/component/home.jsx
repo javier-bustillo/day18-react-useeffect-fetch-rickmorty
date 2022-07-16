@@ -11,14 +11,15 @@ const Home = () => {
   //useEffect
   useEffect(() => {
     //fetch for character
-    fetch("https://rickandmortyapi.com/api/character")
-      .then((resp) => resp.json())
-      .then((data) => setCharacters(data.results));
+    fetch("https://rickandmortyapi.com/api/character") /* URL where data is */
+      .then((resp) => resp.json()) /* convert response into JSON */
+      .then((data) => setCharacters(data.results)); /* store response into data and set characters*/ 
     //fetch for location
-    fetch("https://rickandmortyapi.com/api/location")
-      .then((resp) => resp.json())
-      .then((data) => setLocations(data.results));
+    fetch("https://rickandmortyapi.com/api/location") /* URL where data is */
+      .then((resp) => resp.json()) /* convert response into JSON */
+      .then((data) => setLocations(data.results)); /* store response into data and set locations*/
   }, []); /* empty array for single execution */ 
+  
   // Iterate characters set
   const charactersArr = characters.map((item) => (
     <li key={item.id}> {/*by id, without id use index */}

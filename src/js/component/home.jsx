@@ -1,34 +1,46 @@
-import React, {useState, useEffect} from "react";
-
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+//import React and hooks
+import React, { useState, useEffect } from "react";
 
 //create your first component
 const Home = () => {
-	const [characters, setCharacters] = useState([]);
+  //destructuring useState
+  const [characters, setCharacters] = useState([]);
+  //destructuring useState
+  const [locations, setLocations] = useState([]);
 
-	useEffect{()=>{
-		fetch("https://rickandmortyapi.com/api/character")
-			.then((resp) => resp.json())
-			.then((data) => setCharacters(data.results));
-	}, []};
-
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+  //useEffect
+  useEffect(() => {
+    //fetch for character
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((resp) => resp.json())
+      .then((data) => setCharacters(data.results));
+    //fetch for location
+    fetch("https://rickandmortyapi.com/api/location")
+      .then((resp) => resp.json())
+      .then((data) => setLocations(data.results));
+  }, []); /* empty array for single execution */ 
+  // Iterate characters set
+  const charactersArr = characters.map((item) => (
+    <li key={item.id}> {/*by id, without id use index */}
+      Character name: {item.name} <br></br> Character Location: {item.location.name}
+    </li>    
+  ));
+    // Iterate locations set
+  const locationsArr = locations.map((item) => (
+    <li key={item.id}>{/*by id, without id use index */}
+      Location: {item.name} Type: {item.type}
+    </li>
+  ));
+  return (
+    <div>
+      <h1 className="text-center mt-5">Characters</h1>
+      {/*insert new array returned from map() */}
+      {charactersArr}
+      <h1 className="text-center mt-5">Locations and Type of Locations</h1>
+      {/*insert new array returned from map() */}
+      {locationsArr}
+    </div>
+  );
 };
-
+{/*export component*/}
 export default Home;
